@@ -1,0 +1,13 @@
+00. 실행 여부
+01. id
+02. ip
+03. portNUM
+04. pathCurrentOption
+05. hotkey[0]
+06. hotkey[1]
+07. hotkey[2]
+08. hotkey[3]
+09. autoRunTimeIndex;
+10. dailyTimeHour
+11. dailyTimeMin
+12. mode

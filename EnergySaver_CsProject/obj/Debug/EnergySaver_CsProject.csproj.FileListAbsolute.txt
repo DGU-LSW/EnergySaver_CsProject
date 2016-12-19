@@ -1,0 +1,18 @@
+c:\users\lee shin woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\bin\Debug\EnergySaver_CsProject.exe.config
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\bin\Debug\EnergySaver_CsProject.exe
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\bin\Debug\EnergySaver_CsProject.pdb
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.csprojResolveAssemblyReference.cache
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.OptionForm.resources
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.Properties.Resources.resources
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.csproj.GenerateResource.Cache
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.exe
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.pdb
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.MainForm.resources
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.SetIDForm.resources
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.SetIPForm.resources
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.SetKeyForm.resources
+C:\Users\Lee Shin Woo\documents\visual studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.LogForm.resources
+C:\Users\Lee Shin Woo\Documents\Visual Studio 2015\Projects\EnergySaver_CsProject\EnergySaver_CsProject\bin\Debug\MouseKeyboardLibrary.pdb
+C:\Users\Lee Shin Woo\OneDrive\EnergySaver_CsProject\EnergySaver_CsProject\bin\Debug\EnergySaver_CsProject.exe.config
+C:\Users\Lee Shin Woo\OneDrive\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.exe
+C:\Users\Lee Shin Woo\OneDrive\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.pdb

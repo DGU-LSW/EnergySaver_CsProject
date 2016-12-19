@@ -1,0 +1,13 @@
+False
+2011112289
+210.94.194.100
+20151
+currentOption.txt
+True
+True
+True
+True
+-1
+-1
+-1
+0
