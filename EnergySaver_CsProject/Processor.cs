@@ -457,12 +457,13 @@ namespace EnergySaver_CsProject
         //자동 실행 카운터 값 지정
         void autoRunCountSetting()
         {
-            if (autoRunCount == 0)
+            if (autoRunTimeIndex == 0)
             {
                 autoRunExe = false;
             }
             else
             {
+                autoRunExe = true;
                 autoRunCount = autoRunTimeIndex * 5 * 60;   //autoRunCount초 이후 실행
                 of.ToolProgressBar.Maximum = autoRunCount;
                 of.ToolProgressBar.Value = 0;

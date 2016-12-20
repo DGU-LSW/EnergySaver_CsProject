@@ -94,6 +94,7 @@ namespace EnergySaver_CsProject
                         processor.turnOff();
                         break;
                 }
+                this.Dispose();
             }
             else
             {
