@@ -73,7 +73,33 @@ namespace EnergySaver_CsProject
         private void buttonExecute_Click(object sender, EventArgs e)
         {
             timer.Stop();
-            processor.ExecuteMode();
+            if (modeExe)
+            {
+                switch (mode)
+                {
+                    case MODE.MonitorOff:
+                        timer.Stop();
+                        processor.monitorOff();
+                        break;
+                    case MODE.Stanby:
+                        timer.Stop();
+                        processor.standby();
+                        break;
+                    case MODE.MaxSave:
+                        timer.Stop();
+                        processor.savePower();
+                        break;
+                    case MODE.Turnoff:
+                        timer.Stop();
+                        processor.turnOff();
+                        break;
+                }
+            }
+            else
+            {
+                timer.Stop();
+                processor.ExecuteMode();
+            }
             this.Dispose();
         }
 
