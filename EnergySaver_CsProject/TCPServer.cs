@@ -220,20 +220,14 @@ namespace Timer_TCPServer
                     // 읽어온 메시지가 있다면
                     if (message != null)
                     {
-
                         if (message == "off")
                         {
-                            CountDownForm cdf = new CountDownForm(processor, MODE.Turnoff);
-                            cdf.Show();
-                            //processor.turnOff();
+                            processor.turnOff();
                         }
                         else if (message == "sleep")
                         {
-                            CountDownForm cdf = new CountDownForm(processor, MODE.MonitorOff);
-                            cdf.Show();
-                            //processor.standby();
+                            processor.standby();
                         }
-
                     }
                 }
             }
