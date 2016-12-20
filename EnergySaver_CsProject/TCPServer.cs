@@ -224,11 +224,13 @@ namespace Timer_TCPServer
                         if (message == "off")
                         {
                             CountDownForm cdf = new CountDownForm(processor, MODE.Turnoff);
+                            cdf.Show();
                             //processor.turnOff();
                         }
                         else if (message == "sleep")
                         {
                             CountDownForm cdf = new CountDownForm(processor, MODE.MonitorOff);
+                            cdf.Show();
                             //processor.standby();
                         }
 

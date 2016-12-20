@@ -9,5 +9,4 @@ False
 False
 1
 16
-0
 1

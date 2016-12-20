@@ -55,6 +55,7 @@ namespace EnergySaver_CsProject
         System.Windows.Forms.Timer autoRunTimer;
         System.Windows.Forms.Timer dailyRunTimer;
 
+        bool autoRunExe = false;    //autoRunTimeIndex가 0일때 타이머가 실행 되지 않음
         int autoRunCount;
         double dailyRunCount;
 
@@ -456,16 +457,23 @@ namespace EnergySaver_CsProject
         //자동 실행 카운터 값 지정
         void autoRunCountSetting()
         {
-            autoRunCount = autoRunTimeIndex * 5 * 60;   //autoRunCount초 이후 실행
-            of.ToolProgressBar.Maximum = autoRunCount;
-            of.ToolProgressBar.Value = 0;
+            if (autoRunCount == 0)
+            {
+                autoRunExe = false;
+            }
+            else
+            {
+                autoRunCount = autoRunTimeIndex * 5 * 60;   //autoRunCount초 이후 실행
+                of.ToolProgressBar.Maximum = autoRunCount;
+                of.ToolProgressBar.Value = 0;
+            }
         }
         //매일 종료 카운터 값 지정
         void dailyRunCountSetting()
         {
             DateTime targetTime = new DateTime(
                 DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
-                dailyTimeHour, dailyTimeMin * 10, DateTime.Now.Second);
+                dailyTimeHour, dailyTimeMin * 10, DateTime.Today.Second);
 
             DateTime todayTime = new DateTime(
                 DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
@@ -482,12 +490,15 @@ namespace EnergySaver_CsProject
         //자동 실행 타이머 몸체
         void autoRunCountDown(object sender, EventArgs e)
         {
-            autoRunCount--;
-            of.ToolProgressBar.Value++;
-            if(autoRunCount <= 0)
+            if (autoRunExe)
             {
-                autoRunTimer.Stop();
-                ExecuteMode();
+                autoRunCount--;
+                of.ToolProgressBar.Value++;
+                if (autoRunCount <= 0)
+                {
+                    autoRunTimer.Stop();
+                    ExecuteMode();
+                }
             }
         }
         //매일 종료 타이머 몸체
@@ -502,6 +513,7 @@ namespace EnergySaver_CsProject
             {
                 dailyRunTimer.Stop();
                 CountDownForm cdf = new CountDownForm(this, MODE.Turnoff);
+                cdf.Show();
             }
         }
         //설정 변경시 서버 재연결
