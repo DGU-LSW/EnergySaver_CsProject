@@ -231,7 +231,8 @@ namespace EnergySaver_CsProject
             {
                 MessageBox.Show("기록완료");
                 serverLog = log("read", "sleep");   //id=학번&cmd=read&action=sleep를 보냄 & log 박스 갱신
-                Process.Start(fileName: pathCMD, arguments: "monitor off");   //monitor off
+                //Process.Start(fileName: pathCMD, arguments: "monitor off");   //monitor off
+                MessageBox.Show("모니터 끄기");
                 monitorSleep = true;
             }
             else
@@ -249,7 +250,8 @@ namespace EnergySaver_CsProject
                 MessageBox.Show("기록 완료");
                 serverLog = log("read", "shutdown");    //id=학번&cmd=read&action=shutdown를 보냄 & log 박스 갱신
                 //Process.Start(fileName: path, arguments: "mutesysvolume 2");  //볼륨 음소거 토글
-                Process.Start(fileName: pathCMD, arguments: "exitwin poweroff"); //컴퓨터 종료
+                //Process.Start(fileName: pathCMD, arguments: "exitwin poweroff"); //컴퓨터 종료
+                MessageBox.Show("turnOff");
             }
             else
             {
@@ -265,7 +267,8 @@ namespace EnergySaver_CsProject
             {
                 MessageBox.Show("기록완료");
                 serverLog = log("read", "suspend");
-                Process.Start(fileName: pathCMD, arguments: "standby force");
+                //Process.Start(fileName: pathCMD, arguments: "standby force");
+                MessageBox.Show("절전모드");
             }
             else
             {
@@ -280,11 +283,27 @@ namespace EnergySaver_CsProject
             {
                 MessageBox.Show("기록완료");
                 serverLog = log("read", "sleep");
-                Process.Start(fileName: "rundll32", arguments: "powrprof.dll, SetSuspendState");
+                //Process.Start(fileName: "rundll32", arguments: "powrprof.dll, SetSuspendState");
+                MessageBox.Show("최대 절전");
             }
             else
             {
                 MessageBox.Show(result);
+            }
+        }
+        public void ExecuteMode()
+        {
+            switch (mode)
+            {
+                case MODE.MonitorOff:
+                    monitorOff();
+                    break;
+                case MODE.Stanby:
+                    standby();
+                    break;
+                case MODE.MaxSave:
+                    savePower();
+                    break;
             }
         }
         //설정을 string[]으로 변환

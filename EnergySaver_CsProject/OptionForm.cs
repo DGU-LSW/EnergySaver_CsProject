@@ -249,8 +249,9 @@ namespace EnergySaver_CsProject
                 e.Control.ToString().Equals(processor.HotKey[2]) &&
                 e.Alt.ToString().Equals(processor.HotKey[3]))
             {
-                //monitorOff();
                 MessageBox.Show("단축키 기능 실행");
+                CountDownForm cdf = new CountDownForm(processor);
+                cdf.ShowDialog(this);
             }
         }
 
@@ -302,7 +303,8 @@ namespace EnergySaver_CsProject
 
         private void toolStripMenuItemExecute_Click(object sender, EventArgs e)
         {
-
+            CountDownForm cdf = new CountDownForm(processor);
+            cdf.ShowDialog(this);
         }
 
         private void toolStripMenuItemExit_Click(object sender, EventArgs e)

@@ -5,9 +5,9 @@ True
 currentOption.txt
 O
 True
-True
+False
 False
 8
 8
 5
-1
+0
