@@ -16,7 +16,7 @@ namespace EnergySaver_CsProject
     public partial class OptionForm : Form
     {
         Processor processor;
-        string[] tmpKey;
+        string[] tmpKey;    //단축키 임시 저장
 
         MouseHook mouseHook = new MouseHook();
         KeyboardHook keyboardHook = new KeyboardHook();
@@ -31,7 +31,7 @@ namespace EnergySaver_CsProject
             tmpKey[1] = processor.HotKey[1];
             tmpKey[2] = processor.HotKey[2];
             tmpKey[3] = processor.HotKey[3];
-            redrawFromProcessor();
+            redrawFromProcessor();  //콤포넌트 값을 processor과 맞춤
             #endregion
         }
         public string[] TmpKey
@@ -71,7 +71,7 @@ namespace EnergySaver_CsProject
             comboBoxAutoRun.SelectedIndex = processor.AutoRunTimeIndex;
             comboBoxDailyHour.SelectedIndex = processor.DailyTimeHour;
             comboBoxDailyMin.SelectedIndex = processor.DailyTimeMin;
-            switch (processor.Mode)
+            switch (processor.Mode) //모드 값에 따라서 radio버튼 선택
             {
                 case MODE.MonitorOff:
                     radioButtonMonitor.Select();
@@ -94,47 +94,6 @@ namespace EnergySaver_CsProject
         {
             textBoxServer.Text = processor.IP + " : " + processor.PortNUM;
         }
-        //라디오 버튼 체인지
-        //private void radioButtonChange()
-        //{
-        //    if (radioButtonMonitor.Checked)
-        //    {
-        //        processor.Mode = MODE.MonitorOff;
-        //    }
-        //    else if (radioButtonStandby.Checked)
-        //    {
-        //        processor.Mode = MODE.Stanby;
-        //    }
-        //    else if (radioButtonMaxSave.Checked)
-        //    {
-        //        processor.Mode = MODE.MaxSave;
-        //    }
-        //}
-        //private void radioButtonMonitor_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    radioButtonChange();
-        //}
-        //private void radioButtonStandby_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    radioButtonChange();
-        //}
-        //private void radioButtonMaxSave_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    radioButtonChange();
-        //}
-        //콤보 박스 체인지
-        //private void comboBoxDailyHour_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    processor.DailyTimeHour = comboBoxDailyHour.SelectedIndex;
-        //}
-        //private void comboBoxDailyMin_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    processor.DailyTimeMin = comboBoxDailyMin.SelectedIndex;
-        //}
-        //private void comboBoxAutoRun_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    processor.AutoRunTimeIndex = comboBoxAutoRun.SelectedIndex;
-        //}
 
         private void buttonID_Click(object sender, EventArgs e)
         {
@@ -147,19 +106,13 @@ namespace EnergySaver_CsProject
             SetIPForm setIPForm = new SetIPForm(processor, this);
             setIPForm.ShowDialog(this);
         }
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    LogForm logForm = new LogForm(processor, this);
-        //    logForm.ShowDialog(this);
-        //}
-
+        
         private void buttonLog_Click(object sender, EventArgs e)
         {
             LogForm lf = new LogForm(processor, this);
             lf.ShowDialog(this);
         }
-
+        //processor와 설정저장파일에 값을 저장
         private void buttonSaveSeting_Click(object sender, EventArgs e)
         {
             processor.AutoRunTimeIndex = comboBoxAutoRun.SelectedIndex;
@@ -203,7 +156,7 @@ namespace EnergySaver_CsProject
         {
             this.Close();
         }
-
+        //기본 설정 값으로 processor값 변경
         private void buttonDefaultSetting_Click(object sender, EventArgs e)
         {
             if (File.Exists(processor.pathDefaultSetting))
@@ -258,7 +211,7 @@ namespace EnergySaver_CsProject
         void keyboardHook_KeyPress(object sender, KeyPressEventArgs e)
         {
             processor.monitorOn();
-            processor.autoRunCountRestart();
+            processor.autoRunCountRestart();    //자동 실행 다시 시작
         }
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -294,7 +247,7 @@ namespace EnergySaver_CsProject
         void mouseHook_MouseMove(object sender, MouseEventArgs e)
         {
             processor.monitorOn();
-            processor.autoRunCountRestart();
+            processor.autoRunCountRestart();    //자동 실행 카운트 초기화
         }
 
         private void TestForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -305,14 +258,14 @@ namespace EnergySaver_CsProject
             //keyboardHook.Stop();
         }
         #endregion
-
+        //컨텍스트 메뉴 환경설정
         private void toolStripMenuItemOption_Click(object sender, EventArgs e)
         {
             this.Show();
             this.ShowInTaskbar = true;
             this.notifyIcon1.Visible = false;
         }
-
+        //컨텍스트 메뉴 단축키 설정
         private void toolStripMenuItemHotkey_Click(object sender, EventArgs e)
         {
             this.Show();
@@ -321,18 +274,18 @@ namespace EnergySaver_CsProject
             SetKeyForm setKeyForm = new SetKeyForm(processor, this);
             setKeyForm.ShowDialog(this);
         }
-
+        //설정 모드 바로 실행
         private void toolStripMenuItemExecute_Click(object sender, EventArgs e)
         {
             CountDownForm cdf = new CountDownForm(processor);
             cdf.ShowDialog(this);
         }
-
+        //프로그램 종료
         private void toolStripMenuItemExit_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
-
+        //X버튼 클릭시 폼 hide
         private void OptionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;//이벤트 캔슬

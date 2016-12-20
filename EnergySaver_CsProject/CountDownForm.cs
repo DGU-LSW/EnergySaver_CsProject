@@ -13,7 +13,7 @@ namespace EnergySaver_CsProject
     {
         Processor processor;
         Timer timer;
-        bool modeExe = false;
+        bool modeExe = false;   //mode값에 따라 수행 여부
         MODE mode;
         int count = 15;
         public CountDownForm()
@@ -43,11 +43,10 @@ namespace EnergySaver_CsProject
         }
         void countdown(object sender, EventArgs e)
         {
-            label1.Text = (15 - (++progressBar1.Value)) + "초 후에 실행합니다.";
             count--;
             if (count <= 0)
             {
-                if (modeExe)
+                if (modeExe)    //매개변수 mode 에 따라 실행
                 {
                     switch (mode)
                     {
@@ -68,13 +67,16 @@ namespace EnergySaver_CsProject
                             processor.turnOff();
                             break;
                     }
+                    this.Dispose();
                 }
                 else
-                {
+                {   //processor의 mode에 따라 실행
                     timer.Stop();
                     processor.ExecuteMode();
+                    this.Dispose();
                 }
             }
+            label1.Text = (15 - (++progressBar1.Value)) + "초 후에 실행합니다.";
         }
 
         private void buttonExecute_Click(object sender, EventArgs e)

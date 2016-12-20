@@ -10,11 +10,6 @@ using System.Windows.Forms;
 
 namespace EnergySaver_CsProject
 {
-    //enum CMD
-    //{
-    //    Write,
-    //    Read
-    //};
     public enum MODE
     {
         MonitorOff,
@@ -22,21 +17,13 @@ namespace EnergySaver_CsProject
         MaxSave,
         Turnoff
     };
-    //enum ACTION
-    //{
-    //    Wakeup,
-    //    Sleep,  //모니터 끄기
-    //    Shutdown,   //전원 종료
-    //    Suspend,    //대기 모드
-    //    Hibernate   //최대 절전 모드
-    //};
     public class Processor
     {
         #region 저장되는 설정 변수
-        bool reRun = false;
-        string id = "2011112289";
-        string ip = "210.94.194.100";
-        string portNum = "20151"; //port번호
+        bool reRun = false; //최초 실행 여부 확인
+        string id;
+        string ip;
+        string portNum; //port번호
         string pathCurrentOption = "currentOption.txt";    //옵션 저장 경로
         string[] hotkey;// = new string[4];   //단축키 설정
 
@@ -44,20 +31,20 @@ namespace EnergySaver_CsProject
         int dailyTimeHour;      //0시 ~ 23시
         int dailyTimeMin;       //valut * 10min
 
-        MODE mode;
+        MODE mode;  //모드 지정
         #endregion
         Timer_TCPServer.TCPServer tcpserver;
         string pathCMD = "nircmd.exe";
-        string serverLog;
+        string serverLog;   //서버 로그 저장
         string pathDefaultOption = "defaultOption.txt";
-        bool monitorSleep = false;
+        bool monitorSleep = false;  //모니터 off 여부
 
-        System.Windows.Forms.Timer autoRunTimer;
-        System.Windows.Forms.Timer dailyRunTimer;
+        System.Windows.Forms.Timer autoRunTimer;    //자동 실행 타이머
+        System.Windows.Forms.Timer dailyRunTimer;   //매일 종료 타이머
 
         bool autoRunExe = false;    //autoRunTimeIndex가 0일때 타이머가 실행 되지 않음
-        int autoRunCount;
-        double dailyRunCount;
+        int autoRunCount;           //0이 되면 자동 실행
+        double dailyRunCount;       //0이 되면 매일 종료
 
         OptionForm of;
         
@@ -182,9 +169,9 @@ namespace EnergySaver_CsProject
         public Processor()
         {
             hotkey = new string[4];
-            hotkey[0] = hotkey[1] = hotkey[2] = hotkey[3] = "11";
-            loadSettingFromCurrnet();
-            registerUser(id);
+            hotkey[0] = hotkey[1] = hotkey[2] = hotkey[3] = "temp";
+            loadSettingFromCurrnet();   //저장된 설정으로 값 변경
+            registerUser(id);           //서버에 id 등록
             tcpserver = new Timer_TCPServer.TCPServer(this);
             tcpserver.Connent(ip, int.Parse(portNum));
             tcpserver.Start();
@@ -196,11 +183,11 @@ namespace EnergySaver_CsProject
             dailyRunTimer = new System.Windows.Forms.Timer();
 
             autoRunTimer.Interval = dailyRunTimer.Interval = 1000;//1000ms초 단위로
-            autoRunTimer.Tick += new EventHandler(autoRunCountDown);
-            dailyRunTimer.Tick += new EventHandler(dailyRunCountDown);
-            TimerSetting();
-            autoRunTimer.Start();
-            dailyRunTimer.Start();
+            autoRunTimer.Tick += new EventHandler(autoRunCountDown);    //메소드 연결
+            dailyRunTimer.Tick += new EventHandler(dailyRunCountDown);  //메소드 연결
+            TimerSetting(); //count값 설정
+            autoRunTimer.Start();   //타이머 시작
+            dailyRunTimer.Start();  //타이머 시작
         }
         //서버에 아이디를 다시 등록
         public void reRegisterID()
@@ -300,8 +287,8 @@ namespace EnergySaver_CsProject
             {
                 MessageBox.Show("기록 완료");
                 serverLog = log("read", "shutdown");    //id=학번&cmd=read&action=shutdown를 보냄 & log 박스 갱신
-                //Process.Start(fileName: path, arguments: "mutesysvolume 2");  //볼륨 음소거 토글
-                //Process.Start(fileName: pathCMD, arguments: "exitwin poweroff"); //컴퓨터 종료
+                //Process.Start(fileName: pathCMD, arguments: "mutesysvolume 2");  //볼륨 음소거 토글
+                Process.Start(fileName: pathCMD, arguments: "exitwin poweroff"); //컴퓨터 종료
                 MessageBox.Show("turnOff");
             }
             else
@@ -316,10 +303,8 @@ namespace EnergySaver_CsProject
             string result = log("write", "suspend");
             if (result == "OK")
             {
-                //MessageBox.Show("기록완료");
                 serverLog = log("read", "suspend");
                 Process.Start(fileName: pathCMD, arguments: "standby force");
-                //MessageBox.Show("절전모드");
             }
             else
             {
@@ -332,10 +317,8 @@ namespace EnergySaver_CsProject
             string result = log("write", "hibernate");
             if (result == "OK")
             {
-                //MessageBox.Show("기록완료");
                 serverLog = log("read", "sleep");
-                Process.Start(fileName: "rundll32", arguments: "powrprof.dll, SetSuspendState");
-                //MessageBox.Show("최대 절전");
+                Process.Start(fileName: "rundll32", arguments: "powrprof.dll, SetSuspendState");    //최대 절전 모드 실행
             }
             else
             {
@@ -358,7 +341,7 @@ namespace EnergySaver_CsProject
                     break;
             }
         }
-        //설정을 string[]으로 변환
+        //각 변수들을 string[]으로 변환
         public string[] SetingToStringArr()
         {
             string[] str = new string[13];
@@ -457,9 +440,9 @@ namespace EnergySaver_CsProject
         //자동 실행 카운터 값 지정
         void autoRunCountSetting()
         {
-            if (autoRunTimeIndex == 0)
+            if (autoRunTimeIndex == 0)  //사용안함
             {
-                autoRunExe = false;
+                autoRunExe = false; //자동실행을 안함
             }
             else
             {
@@ -472,26 +455,26 @@ namespace EnergySaver_CsProject
         //매일 종료 카운터 값 지정
         void dailyRunCountSetting()
         {
-            DateTime targetTime = new DateTime(
+            DateTime targetTime = new DateTime( //종료될 시간
                 DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
                 dailyTimeHour, dailyTimeMin * 10, DateTime.Today.Second);
 
-            DateTime todayTime = new DateTime(
+            DateTime todayTime = new DateTime(  //현재 시간
                 DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
                 DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
-            if (DateTime.Compare(targetTime,todayTime) <= 0)
+            if (DateTime.Compare(targetTime,todayTime) <= 0)    //종료될 시간이 현재 시간보다 이전의 경우
             {
-                targetTime = targetTime.Add(new TimeSpan(1, 0, 0, 0));
+                targetTime = targetTime.Add(new TimeSpan(1, 0, 0, 0));  //종료될 시간을 하루 늦춤
             }
-            TimeSpan subTime = targetTime - todayTime;
+            TimeSpan subTime = targetTime - todayTime;  //종료될 시간과 현재시간의 차를 구함
 
-            dailyRunCount = subTime.TotalSeconds;
+            dailyRunCount = subTime.TotalSeconds;   //시간차를 second로 저장
         }
         //자동 실행 타이머 몸체
         void autoRunCountDown(object sender, EventArgs e)
         {
-            if (autoRunExe)
+            if (autoRunExe) //자동 실행을 할 경우에만
             {
                 autoRunCount--;
                 of.ToolProgressBar.Value++;
@@ -507,9 +490,9 @@ namespace EnergySaver_CsProject
         {
             dailyRunCount--;
             of.ToolLabelDaily.Text = "매일 종료 : " +
-                (int)(dailyRunCount / (60 * 60)) + "H " +
-                (int)((dailyRunCount % (60 * 60)) / 60) + "M " +
-                (int)(dailyRunCount % 60) + "S";
+                (int)(dailyRunCount / (60 * 60)) + "H " +   //시
+                (int)((dailyRunCount % (60 * 60)) / 60) + "M " +    //분
+                (int)(dailyRunCount % 60) + "S";    //초
             if (dailyRunCount <= 0)
             {
                 dailyRunTimer.Stop();
