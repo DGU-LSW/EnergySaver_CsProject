@@ -153,12 +153,13 @@ namespace EnergySaver_CsProject
         {
             get
             {
+                serverLog = log("read", "sleep");
                 return serverLog;
             }
-            set
-            {
-                serverLog = value;
-            }
+            //set
+            //{
+            //    serverLog = value;
+            //}
         }
         public string[] HotKey
         {
@@ -434,10 +435,15 @@ namespace EnergySaver_CsProject
             autoRunCountSetting();
             dailyRunCountSetting();
         }
+        public void autoRunCountRestart()
+        {
+            autoRunCountSetting();
+        }
         void autoRunCountSetting()
         {
             autoRunCount = autoRunTimeIndex * 5 * 60;   //autoRunCount초 이후 실행
             of.ToolProgressBar.Maximum = autoRunCount;
+            of.ToolProgressBar.Value = 0;
         }
         void dailyRunCountSetting()
         {
@@ -448,9 +454,9 @@ namespace EnergySaver_CsProject
             todayTime = new DateTime(
                 DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
                 DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            if(dailyTimeHour < todayTime.Hour)
+            if(DateTime.Compare(targetTime,todayTime) <= 0)
             {
-                targetTime.Add(new TimeSpan(1, 0, 0, 0));
+                targetTime = targetTime.Add(new TimeSpan(1, 0, 0, 0));
             }
             TimeSpan subTime = targetTime - todayTime;
 

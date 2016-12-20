@@ -23,6 +23,7 @@ namespace EnergySaver_CsProject
         {
             processor = _processor;
             of = _of;
+            textBoxLog.Text = processor.ServerLog;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

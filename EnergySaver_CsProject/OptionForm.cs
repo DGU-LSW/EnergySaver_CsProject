@@ -256,6 +256,7 @@ namespace EnergySaver_CsProject
         void keyboardHook_KeyPress(object sender, KeyPressEventArgs e)
         {
             processor.monitorOn();
+            processor.autoRunCountRestart();
         }
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -291,6 +292,7 @@ namespace EnergySaver_CsProject
         void mouseHook_MouseMove(object sender, MouseEventArgs e)
         {
             processor.monitorOn();
+            processor.autoRunCountRestart();
         }
 
         private void TestForm_FormClosed(object sender, FormClosedEventArgs e)

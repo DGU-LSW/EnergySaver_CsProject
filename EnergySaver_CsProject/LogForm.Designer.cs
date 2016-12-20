@@ -31,7 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.SuspendLayout();
             // 
             // label1
@@ -62,19 +61,11 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // vScrollBar1
-            // 
-            this.vScrollBar1.Location = new System.Drawing.Point(234, 27);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(18, 191);
-            this.vScrollBar1.TabIndex = 3;
-            // 
             // LogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(353, 237);
-            this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.label1);
@@ -91,6 +82,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
     }
 }
