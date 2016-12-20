@@ -445,7 +445,9 @@ namespace EnergySaver_CsProject
             DateTime targetTime = new DateTime(
                 DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
                 dailyTimeHour, dailyTimeMin * 10, DateTime.Today.Second);
-            todayTime = DateTime.Today;
+            todayTime = new DateTime(
+                DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
+                DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
             if(dailyTimeHour < todayTime.Hour)
             {
                 targetTime.Add(new TimeSpan(1, 0, 0, 0));
@@ -468,9 +470,9 @@ namespace EnergySaver_CsProject
         {
             dailyRunCount--;
             of.ToolLabelDaily.Text = "매일 종료 : " +
-                dailyRunCount / (60 * 60) + "h" +
-                (dailyRunCount % (60 * 60)) / 60 + "m" +
-                dailyRunCount % 60;
+                (int)(dailyRunCount / (60 * 60)) + "H " +
+                (int)((dailyRunCount % (60 * 60)) / 60) + "M " +
+                (int)(dailyRunCount % 60) + "S";
             if (dailyRunCount <= 0)
             {
                 dailyRunTimer.Stop();
