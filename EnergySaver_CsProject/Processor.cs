@@ -47,7 +47,7 @@ namespace EnergySaver_CsProject
         MODE mode;
         #endregion
         Timer_TCPServer.TCPServer tcpserver;
-        string pathCMD = "C:\\Users\\Lee Shin Woo\\Desktop\\C#\\nircmd-x64\\nircmd.exe";
+        string pathCMD = "nircmd.exe";
         string serverLog;
         string pathDefaultOption = "defaultOption.txt";
         bool monitorSleep = false;
