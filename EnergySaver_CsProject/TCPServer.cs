@@ -223,12 +223,13 @@ namespace Timer_TCPServer
 
                         if (message == "off")
                         {
-                            //f1.turnOff();
-                            processor.turnOff();
+                            CountDownForm cdf = new CountDownForm(processor, MODE.Turnoff);
+                            //processor.turnOff();
                         }
                         else if (message == "sleep")
                         {
-                            processor.standby();
+                            CountDownForm cdf = new CountDownForm(processor, MODE.MonitorOff);
+                            //processor.standby();
                         }
 
                     }

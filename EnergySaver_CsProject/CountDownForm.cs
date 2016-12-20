@@ -13,6 +13,8 @@ namespace EnergySaver_CsProject
     {
         Processor processor;
         Timer timer;
+        bool modeExe = false;
+        MODE mode;
         int count = 15;
         public CountDownForm()
         {
@@ -27,14 +29,44 @@ namespace EnergySaver_CsProject
             timer.Start();
             progressBar1.Maximum = 15;
         }
+        public CountDownForm(Processor _processor, MODE _mode) : this(_processor)
+        {
+            mode = _mode;
+            modeExe = true;
+        }
         void countdown(object sender, EventArgs e)
         {
             label1.Text = (15 - (++progressBar1.Value)) + "초 후에 실행합니다.";
             count--;
             if (count <= 0)
             {
-                timer.Stop();
-                processor.ExecuteMode();
+                if (modeExe)
+                {
+                    switch (mode)
+                    {
+                        case MODE.MonitorOff:
+                            timer.Stop();
+                            processor.monitorOff();
+                            break;
+                        case MODE.Stanby:
+                            timer.Stop();
+                            processor.standby();
+                            break;
+                        case MODE.MaxSave:
+                            timer.Stop();
+                            processor.savePower();
+                            break;
+                        case MODE.Turnoff:
+                            timer.Stop();
+                            processor.turnOff();
+                            break;
+                    }
+                }
+                else
+                {
+                    timer.Stop();
+                    processor.ExecuteMode();
+                }
             }
         }
 

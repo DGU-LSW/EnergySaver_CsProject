@@ -19,7 +19,8 @@ namespace EnergySaver_CsProject
     {
         MonitorOff,
         Stanby,
-        MaxSave
+        MaxSave,
+        Turnoff
     };
     //enum ACTION
     //{
@@ -500,7 +501,7 @@ namespace EnergySaver_CsProject
             if (dailyRunCount <= 0)
             {
                 dailyRunTimer.Stop();
-                turnOff();
+                CountDownForm cdf = new CountDownForm(this, MODE.Turnoff);
             }
         }
         //설정 변경시 서버 재연결
