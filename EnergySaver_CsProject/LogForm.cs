@@ -23,7 +23,6 @@ namespace EnergySaver_CsProject
         {
             processor = _processor;
             of = _of;
-            textBoxLog.Text = processor.ServerLog;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -44,6 +43,11 @@ namespace EnergySaver_CsProject
                 fs.Close();
             }
             this.Close();
+        }
+
+        private void LogForm_Load(object sender, EventArgs e)
+        {
+            textBoxLog.Text = processor.ServerLog;
         }
     }
 }

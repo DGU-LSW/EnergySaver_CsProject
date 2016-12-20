@@ -29,12 +29,11 @@ namespace EnergySaver_CsProject
         }
         void countdown(object sender, EventArgs e)
         {
-            label1.Text = (15 - (++progressBar1.Value)) + "초 후에 종료합니다.";
+            label1.Text = (15 - (++progressBar1.Value)) + "초 후에 실행합니다.";
             count--;
             if (count <= 0)
             {
                 timer.Stop();
-                //MessageBox.Show("count = 0");
                 processor.ExecuteMode();
             }
         }

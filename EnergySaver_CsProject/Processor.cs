@@ -10,28 +10,28 @@ using System.Windows.Forms;
 
 namespace EnergySaver_CsProject
 {
-    enum CMD
-    {
-        Write,
-        Read
-    };
+    //enum CMD
+    //{
+    //    Write,
+    //    Read
+    //};
     public enum MODE
     {
         MonitorOff,
         Stanby,
         MaxSave
     };
-    enum ACTION
-    {
-        Wakeup,
-        Sleep,  //모니터 끄기
-        Shutdown,   //전원 종료
-        Suspend,    //대기 모드
-        Hibernate   //최대 절전 모드
-    };
+    //enum ACTION
+    //{
+    //    Wakeup,
+    //    Sleep,  //모니터 끄기
+    //    Shutdown,   //전원 종료
+    //    Suspend,    //대기 모드
+    //    Hibernate   //최대 절전 모드
+    //};
     public class Processor
     {
-        #region 설정 저장 하는 변수
+        #region 저장되는 설정 변수
         bool reRun = false;
         string id = "2011112289";
         string ip = "210.94.194.100";
@@ -50,6 +50,14 @@ namespace EnergySaver_CsProject
         string serverLog;
         string pathDefaultOption = "defaultOption.txt";
         bool monitorSleep = false;
+
+        System.Windows.Forms.Timer autoRunTimer;
+        System.Windows.Forms.Timer dailyRunTimer;
+
+        int autoRunCount;
+        double dailyRunCount;
+
+        OptionForm of;
 
         public delegate void AutoRunDelegate();
 
@@ -174,6 +182,20 @@ namespace EnergySaver_CsProject
         {
             hotkey = new string[4];
             hotkey[0] = hotkey[1] = hotkey[2] = hotkey[3] = "11";
+            loadSettingFromCurrnet();
+        }
+        public Processor(OptionForm op) : this()
+        {
+            of = op;
+            autoRunTimer = new System.Windows.Forms.Timer();
+            dailyRunTimer = new System.Windows.Forms.Timer();
+
+            autoRunTimer.Interval = dailyRunTimer.Interval = 1000;//1000ms초 단위로
+            autoRunTimer.Tick += new EventHandler(autoRunCountDown);
+            dailyRunTimer.Tick += new EventHandler(dailyRunCountDown);
+            TimerSetting();
+            autoRunTimer.Start();
+            dailyRunTimer.Start();
         }
         //regist UserID
         private string registerUser(string _id)
@@ -241,6 +263,22 @@ namespace EnergySaver_CsProject
             }
             
         }
+        public void monitorOn()
+        {
+            if (monitorSleep)
+            {
+                string result = log("write", "wakeup"); //id=학번&cmd=write&action=wakeup를 보냄
+                if (result == "OK")
+                {
+                    monitorSleep = false;
+                    serverLog = log("read", "wakeup");  //id=학번&cmd=read&action=wakeup를 보냄 & log 박스 갱신
+                }
+                else
+                {
+                    MessageBox.Show(result);    //실행 결과를 메시지박스로 출력
+                }
+            }
+        }
         //cmd = shutdown 전원 종료
         public void turnOff()
         {
@@ -291,6 +329,7 @@ namespace EnergySaver_CsProject
                 MessageBox.Show(result);
             }
         }
+        //설정된 mode에 따라서 기능 실행
         public void ExecuteMode()
         {
             switch (mode)
@@ -388,6 +427,56 @@ namespace EnergySaver_CsProject
                 string[] tmp = File.ReadAllLines(pathCurrentOption);
                 SetingFromStringArr(tmp);
             }
+
         }
+        public void TimerSetting()
+        {
+            autoRunCountSetting();
+            dailyRunCountSetting();
+        }
+        void autoRunCountSetting()
+        {
+            autoRunCount = autoRunTimeIndex * 5 * 60;   //autoRunCount초 이후 실행
+            of.ToolProgressBar.Maximum = autoRunCount;
+        }
+        void dailyRunCountSetting()
+        {
+            DateTime todayTime;
+            DateTime targetTime = new DateTime(
+                DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day,
+                dailyTimeHour, dailyTimeMin * 10, DateTime.Today.Second);
+            todayTime = DateTime.Today;
+            if(dailyTimeHour < todayTime.Hour)
+            {
+                targetTime.Add(new TimeSpan(1, 0, 0, 0));
+            }
+            TimeSpan subTime = targetTime - todayTime;
+
+            dailyRunCount = subTime.TotalSeconds;
+        }
+        void autoRunCountDown(object sender, EventArgs e)
+        {
+            autoRunCount--;
+            of.ToolProgressBar.Value++;
+            if(autoRunCount <= 0)
+            {
+                autoRunTimer.Stop();
+                ExecuteMode();
+            }
+        }
+        void dailyRunCountDown(object sender, EventArgs e)
+        {
+            dailyRunCount--;
+            of.ToolLabelDaily.Text = "매일 종료 : " +
+                dailyRunCount / (60 * 60) + "h" +
+                (dailyRunCount % (60 * 60)) / 60 + "m" +
+                dailyRunCount % 60;
+            if (dailyRunCount <= 0)
+            {
+                dailyRunTimer.Stop();
+                turnOff();
+            }
+        }
+
     }
 }

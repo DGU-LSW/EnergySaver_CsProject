@@ -80,6 +80,7 @@
             this.Controls.Add(this.label1);
             this.Name = "LogForm";
             this.Text = "LogForm";
+            this.Load += new System.EventHandler(this.LogForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

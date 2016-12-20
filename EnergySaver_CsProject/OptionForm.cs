@@ -20,22 +20,19 @@ namespace EnergySaver_CsProject
 
         MouseHook mouseHook = new MouseHook();
         KeyboardHook keyboardHook = new KeyboardHook();
-
+        
         public OptionForm()
         {
             InitializeComponent();
-            processor = new Processor();
+            processor = new Processor(this);
             tmpKey = new string[4];
             #region processor 설정 불러오기
-            processor.loadSettingFromCurrnet();
             tmpKey[0] = processor.HotKey[0];
             tmpKey[1] = processor.HotKey[1];
             tmpKey[2] = processor.HotKey[2];
             tmpKey[3] = processor.HotKey[3];
             redrawFromProcessor();
             #endregion
-
-            
         }
         public string[] TmpKey
         {
@@ -46,6 +43,27 @@ namespace EnergySaver_CsProject
             set
             {
                 tmpKey = value;
+            }
+        }
+        public ToolStripStatusLabel ToolLabelAutoRun
+        {
+            get
+            {
+                return toolStripStatusLabelAutoRun;
+            }
+        }
+        public ToolStripProgressBar ToolProgressBar
+        {
+            get
+            {
+                return toolStripProgressBar1;
+            }
+        }
+        public ToolStripStatusLabel ToolLabelDaily
+        {
+            get
+            {
+                return toolStripStatusLabelDaily;
             }
         }
         public void redrawFromProcessor()
@@ -77,46 +95,46 @@ namespace EnergySaver_CsProject
             textBoxServer.Text = processor.IP + " : " + processor.PortNUM;
         }
         //라디오 버튼 체인지
-        private void radioButtonChange()
-        {
-            if (radioButtonMonitor.Checked)
-            {
-                processor.Mode = MODE.MonitorOff;
-            }
-            else if (radioButtonStandby.Checked)
-            {
-                processor.Mode = MODE.Stanby;
-            }
-            else if (radioButtonMaxSave.Checked)
-            {
-                processor.Mode = MODE.MaxSave;
-            }
-        }
-        private void radioButtonMonitor_CheckedChanged(object sender, EventArgs e)
-        {
-            radioButtonChange();
-        }
-        private void radioButtonStandby_CheckedChanged(object sender, EventArgs e)
-        {
-            radioButtonChange();
-        }
-        private void radioButtonMaxSave_CheckedChanged(object sender, EventArgs e)
-        {
-            radioButtonChange();
-        }
+        //private void radioButtonChange()
+        //{
+        //    if (radioButtonMonitor.Checked)
+        //    {
+        //        processor.Mode = MODE.MonitorOff;
+        //    }
+        //    else if (radioButtonStandby.Checked)
+        //    {
+        //        processor.Mode = MODE.Stanby;
+        //    }
+        //    else if (radioButtonMaxSave.Checked)
+        //    {
+        //        processor.Mode = MODE.MaxSave;
+        //    }
+        //}
+        //private void radioButtonMonitor_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    radioButtonChange();
+        //}
+        //private void radioButtonStandby_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    radioButtonChange();
+        //}
+        //private void radioButtonMaxSave_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    radioButtonChange();
+        //}
         //콤보 박스 체인지
-        private void comboBoxDailyHour_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            processor.DailyTimeHour = comboBoxDailyHour.SelectedIndex;
-        }
-        private void comboBoxDailyMin_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            processor.DailyTimeMin = comboBoxDailyMin.SelectedIndex;
-        }
-        private void comboBoxAutoRun_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            processor.AutoRunTimeIndex = comboBoxAutoRun.SelectedIndex;
-        }
+        //private void comboBoxDailyHour_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    processor.DailyTimeHour = comboBoxDailyHour.SelectedIndex;
+        //}
+        //private void comboBoxDailyMin_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    processor.DailyTimeMin = comboBoxDailyMin.SelectedIndex;
+        //}
+        //private void comboBoxAutoRun_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    processor.AutoRunTimeIndex = comboBoxAutoRun.SelectedIndex;
+        //}
 
         private void buttonID_Click(object sender, EventArgs e)
         {
@@ -164,8 +182,7 @@ namespace EnergySaver_CsProject
             processor.IP = tmp[0];
             processor.PortNUM = tmp[2];
             processor.HotKey = tmpKey;
-
-
+            processor.TimerSetting();
             #region 설정 텍스트 파일로 저장
             string[] str = processor.SetingToStringArr();
             string path = str[4];
@@ -238,7 +255,7 @@ namespace EnergySaver_CsProject
 
         void keyboardHook_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //monitorOn();
+            processor.monitorOn();
         }
 
         void keyboardHook_KeyUp(object sender, KeyEventArgs e)
@@ -273,7 +290,7 @@ namespace EnergySaver_CsProject
         //마우스 움직일 경우
         void mouseHook_MouseMove(object sender, MouseEventArgs e)
         {
-            //monitorOn();
+            processor.monitorOn();
         }
 
         private void TestForm_FormClosed(object sender, FormClosedEventArgs e)
