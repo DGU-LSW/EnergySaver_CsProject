@@ -23,7 +23,7 @@ namespace EnergySaver_CsProject
         {
             processor = _processor;
             of = _of;
-            textBoxLog.Text = processor.ServerLog;
+            textBoxLog.Text = processor.ServerLog;  //processor에 저장된 서버 로그 표기
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

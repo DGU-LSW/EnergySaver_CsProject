@@ -46,7 +46,7 @@ namespace EnergySaver_CsProject
             count--;
             if (count <= 0)
             {
-                if (modeExe)    //매개변수 mode 에 따라 실행
+                if (modeExe)    //매개로 받은 mode 에 따라 실행
                 {
                     switch (mode)
                     {
@@ -70,7 +70,7 @@ namespace EnergySaver_CsProject
                     this.Dispose();
                 }
                 else
-                {   //processor의 mode에 따라 실행
+                {   //processor의 변수 mode에 따라 실행
                     timer.Stop();
                     processor.ExecuteMode();
                     this.Dispose();

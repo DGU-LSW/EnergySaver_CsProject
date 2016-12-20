@@ -285,17 +285,13 @@ namespace EnergySaver_CsProject
             string result = log("write", "shutdown");   //id=학번&cmd=write&action=shutdown를 보냄
             if (result == "OK")
             {
-                MessageBox.Show("기록 완료");
                 serverLog = log("read", "shutdown");    //id=학번&cmd=read&action=shutdown를 보냄 & log 박스 갱신
-                //Process.Start(fileName: pathCMD, arguments: "mutesysvolume 2");  //볼륨 음소거 토글
                 Process.Start(fileName: pathCMD, arguments: "exitwin poweroff"); //컴퓨터 종료
-                MessageBox.Show("turnOff");
             }
             else
             {
                 MessageBox.Show(result);    //실행 결과를 메시지 박스로 출력
             }
-
         }
         //cmd = suspend 대기모드
         public void standby()
