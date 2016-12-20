@@ -243,7 +243,7 @@ namespace Timer_TCPServer
             }
             finally
             {
-                Disconnect();  // 서버 연결 종료...				
+                //Disconnect();  // 서버 연결 종료...				
             }
         }
 

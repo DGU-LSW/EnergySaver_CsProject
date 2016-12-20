@@ -23,16 +23,23 @@ namespace EnergySaver_CsProject
         public CountDownForm(Processor _processor) : this()
         {
             processor = _processor;
+            modeExe = false;
             timer = new Timer();
             timer.Interval = 1000;  //1000ms 단위로 카운트
             timer.Tick += new EventHandler(countdown);
             timer.Start();
             progressBar1.Maximum = 15;
         }
-        public CountDownForm(Processor _processor, MODE _mode) : this(_processor)
+        public CountDownForm(Processor _processor, MODE _mode) : this()
         {
             mode = _mode;
             modeExe = true;
+            processor = _processor;
+            timer = new Timer();
+            timer.Interval = 1000;  //1000ms 단위로 카운트
+            timer.Tick += new EventHandler(countdown);
+            timer.Start();
+            progressBar1.Maximum = 15;
         }
         void countdown(object sender, EventArgs e)
         {
