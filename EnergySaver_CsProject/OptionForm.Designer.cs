@@ -55,12 +55,12 @@
             this.buttonCancle = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonDefaultSetting = new System.Windows.Forms.Button();
             this.toolStripMenuItemCheck = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOption = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemHotkey = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemExecute = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonDefaultSetting = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -338,16 +338,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(195, 134);
             // 
-            // buttonDefaultSetting
-            // 
-            this.buttonDefaultSetting.Location = new System.Drawing.Point(11, 310);
-            this.buttonDefaultSetting.Name = "buttonDefaultSetting";
-            this.buttonDefaultSetting.Size = new System.Drawing.Size(104, 28);
-            this.buttonDefaultSetting.TabIndex = 21;
-            this.buttonDefaultSetting.Text = "설정 초기화";
-            this.buttonDefaultSetting.UseVisualStyleBackColor = true;
-            this.buttonDefaultSetting.Click += new System.EventHandler(this.buttonDefaultSetting_Click);
-            // 
             // toolStripMenuItemCheck
             // 
             this.toolStripMenuItemCheck.Name = "toolStripMenuItemCheck";
@@ -381,6 +371,16 @@
             this.toolStripMenuItemExit.Size = new System.Drawing.Size(194, 26);
             this.toolStripMenuItemExit.Text = "종료";
             this.toolStripMenuItemExit.Click += new System.EventHandler(this.toolStripMenuItemExit_Click);
+            // 
+            // buttonDefaultSetting
+            // 
+            this.buttonDefaultSetting.Location = new System.Drawing.Point(11, 310);
+            this.buttonDefaultSetting.Name = "buttonDefaultSetting";
+            this.buttonDefaultSetting.Size = new System.Drawing.Size(104, 28);
+            this.buttonDefaultSetting.TabIndex = 21;
+            this.buttonDefaultSetting.Text = "설정 초기화";
+            this.buttonDefaultSetting.UseVisualStyleBackColor = true;
+            this.buttonDefaultSetting.Click += new System.EventHandler(this.buttonDefaultSetting_Click);
             // 
             // OptionForm
             // 

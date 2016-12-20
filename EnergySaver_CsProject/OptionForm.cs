@@ -183,6 +183,7 @@ namespace EnergySaver_CsProject
             processor.PortNUM = tmp[2];
             processor.HotKey = tmpKey;
             processor.TimerSetting();
+            processor.reConnectServer();
             #region 설정 텍스트 파일로 저장
             string[] str = processor.SetingToStringArr();
             string path = str[4];

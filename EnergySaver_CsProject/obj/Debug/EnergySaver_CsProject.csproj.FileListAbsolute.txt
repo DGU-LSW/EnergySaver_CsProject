@@ -24,7 +24,6 @@ C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProje
 C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProject\bin\Debug\MouseKeyboardLibrary.pdb
 C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.csprojResolveAssemblyReference.cache
 C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.LogForm.resources
-C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.MainForm.resources
 C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.OptionForm.resources
 C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.Properties.Resources.resources
 C:\Users\Lee Shin Woo\Documents\GitHub\EnergySaver_CsProject\EnergySaver_CsProject\obj\Debug\EnergySaver_CsProject.SetIDForm.resources

@@ -45,7 +45,7 @@ namespace EnergySaver_CsProject
 
         MODE mode;
         #endregion
-
+        Timer_TCPServer.TCPServer tcpserver;
         string pathCMD = "C:\\Users\\Lee Shin Woo\\Desktop\\C#\\nircmd-x64\\nircmd.exe";
         string serverLog;
         string pathDefaultOption = "defaultOption.txt";
@@ -59,7 +59,7 @@ namespace EnergySaver_CsProject
 
         OptionForm of;
 
-        public delegate void AutoRunDelegate();
+        //public delegate void AutoRunDelegate();
 
         public bool ReRun
         {
@@ -184,6 +184,9 @@ namespace EnergySaver_CsProject
             hotkey = new string[4];
             hotkey[0] = hotkey[1] = hotkey[2] = hotkey[3] = "11";
             loadSettingFromCurrnet();
+            tcpserver = new Timer_TCPServer.TCPServer(this);
+            tcpserver.Connent(ip, int.Parse(portNum));
+            tcpserver.Start();
         }
         public Processor(OptionForm op) : this()
         {
@@ -485,6 +488,11 @@ namespace EnergySaver_CsProject
                 turnOff();
             }
         }
-
+        public void reConnectServer()
+        {
+            tcpserver.Disconnect();
+            tcpserver.Connent(ip, int.Parse(portNum));
+            tcpserver.Start();
+        }
     }
 }
